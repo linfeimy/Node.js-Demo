@@ -85,5 +85,21 @@ console.log(path.resolve()); // e:\linfeimy\02personal\Node.js
 console.log(path.resolve(123)); 
 ```
 
+**path.normalize(path)**
+- ```...paths``` ```<string>``` 
+- 返回: ```<string></string>```
 
-  
+```path.normalize()``` 方法规范化给定的 path，解析 ```'..'``` 和 ```'.'``` 片段
+```
+// 当找到多个连续的路径段分隔字符时（例如 POSIX 上的 /、Windows 上的 \ 或 /），则它们将被替换为单个平台特定的路径段分隔符（POSIX 上的 /、Windows 上的 \）。 尾部的分隔符会保留
+
+
+//如果 path 是零长度的字符串，则返回 '.'，表示当前工作目录。
+console.log(path.normalize('')); // .
+
+// 如果任何参数不是字符串，则抛出 TypeError。
+console.log(path.normalize(123)); 
+```
+
+
+
