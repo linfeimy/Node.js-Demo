@@ -146,3 +146,123 @@ console.log(fs);
     }
 }
 ```
+
+---
+**fs.readFile(path[, options], callback)**;
+- ```path``` ```<string>``` | ```<Buffer>``` | ```<URL>``` | ```<integer>``` 文件名或文件描述符。
+- ```options``` ```<Object>``` | ```<string>```
+  
+  - ```encoding``` ```<string>``` | ```<null>``` 默认值: null。
+  - flag ```<string>``` 参阅支持的**文件系统标志**。默认值: 'r'。
+- ```callback``` ```<Function>```
+  - err ```<Error>```
+  - data ```<string>``` | ```<Buffer>```
+
+异步地读取文件的全部内容
+```
+const fs = require('fs');
+/*
+fs.readFile('./test01.txt', function (err, data) {
+    if(err) throw  err;
+    console.log('文件内容:', data); // 文件内容: <Buffer 0d 0a 74 65 73 74 30 31 2e 74 78 74 0d 0a 0d 0a 0d 0a 0d 0a>
+});
+*/
+
+fs.readFile('./test01.txt', 'utf8', function (err, data) {
+    if(err) throw  err;
+    console.log('文件内容:', data); // 文件内容:test01.txt
+});
+
+如果没有指定 encoding，则返回原始的 buffer。
+
+如果 options 是字符串，则它指定字符编码
+
+fs.readFile() 函数会缓冲整个文件。 为了最小化内存成本，尽可能通过 fs.createReadStream() 进行流式传输
+```
+---
+**fs.writeFile(file, data[, options], callback)**
+- file ```<string>``` | ```<Buffer>``` | ```<URL>``` | ```<integer>``` 文件名或文件描述符。
+- data ```<string>``` | ```<Buffer>``` | ```<TypedArray>``` | ```<DataView>```
+- options ```<Object>``` | ```<string>```
+    - encoding ```<string>``` | ```<null>``` 默认值: 'utf8'。
+    - mode ```<integer>``` 默认值: 0o666。
+    - flag ```<string>``` 参阅支持的文件系统标志。默认值: 'w'。
+- callback ```<Function>```
+    - err ```<Error>```
+
+
+```
+const fs = require('fs');
+
+var w_data = 'Node.js中文网';
+fs.writeFile('./test01.txt', w_data, {encoding: 'utf8', flag: 'a'}, function (err, data) {
+   if(err) throw err;
+   console.log(data);
+});
+
+{flag: 'a'} 加上这个参数，内容将会被以追加方式写入文件，不加上这个参数则会先清空内容，再写入数据
+```
+
+
+
+```
+
+```
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
