@@ -4,11 +4,7 @@ var path = require('path');
 
 
 
-console.log(path.win32);
-
-
-
-
+console.log(path.isAbsolute('/server'));
 
 
 

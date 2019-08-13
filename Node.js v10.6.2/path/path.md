@@ -54,7 +54,6 @@ console.log(path);
 console.log(path.resolve('/foo/bar', './baz')); // e:\foo\bar\baz
 console.log(path.resolve('/foo', '/bar', 'baz')); // e:\bar\baz
 console.log(path.resolve('/foo/bar', 'baz')); // e:\foo\bar\baz
-console.log(path.resolve('/foo/bar', './baz')); // e:\foo\bar\baz
 
 
 
@@ -156,6 +155,7 @@ console.log(path.isAbsolute('')); // false
 console.log(path.join()); // .
 console.log(path.join('foo', '', 'bar')); // foo\bar
 console.log(path.join('foo', 'bar')); // foo\bar
+console.log(path.join('foo', '/bar')); // foo\bar
 
 console.log(path.join('/foo', 'bar', 'baz/asdf', 'quux', '..')); // \foo\bar\baz\asdf
 
@@ -168,9 +168,9 @@ console.log(path.join('foo', {}, 'bar')); // The "path" argument must be of type
 
 ---
 **path.relative(from, to)**
-- from <string>
-- to <string>
-- 返回: <string>
+- from ```<string>```
+- to ```<string>```
+- 返回: ```<string>```
 
 ```path.relative()``` 方法根据当前工作目录返回 ```from``` 到 ```to``` 的相对路径。 如果 ```from``` 和 ```to``` 各自解析到相同的路径（分别调用 ```path.resolve()``` 之后），则返回零长度的字符串。
 
@@ -192,8 +192,8 @@ console.log(path.relative('C:\\AAA\\BBB\\CCC', 'C:\\AAA\\BBB\\CCC')); // ''
 
 ---
 **path.toNamespacedPath(path)**
-- path <string>
-- 返回: <string>
+- path ```<string>```
+- 返回: ```<string>```
 
 仅在 Windows 系统上，返回给定 path 的等效名称空间前缀路径。 如果 path 不是字符串，则将返回 path 而不进行修改。
 
@@ -203,8 +203,8 @@ console.log(path.relative('C:\\AAA\\BBB\\CCC', 'C:\\AAA\\BBB\\CCC')); // ''
 
 ---
 **path.dirname(path)**
-- path <string>
-- 返回: <string>
+- path ```<string>```
+- 返回: ```<string>```
 
 path.dirname() 方法返回 path 的目录名，类似于 Unix 的 dirname 命令。 尾部的目录分隔符将被忽略，参阅 path.sep
 
@@ -217,9 +217,9 @@ console.log(path.dirname('/foo/bar/baz/asdf/quux')); // /foo/bar/baz/asdf
 
 ---
 **path.basename(path[, ext])**
-- path <string>
-- ext <string> 可选的文件扩展名(需要截掉的后缀内容)。
-- 返回: <string>
+- path ```<string>```
+- ext ```<string>``` 可选的文件扩展名(需要截掉的后缀内容)。
+- 返回: ```<string>```
 
 path.basename() 方法返回 path 的最后一部分，类似于 Unix 的 basename 命令。 尾部的目录分隔符将被忽略，参阅 path.sep。
 ```
@@ -228,7 +228,7 @@ console.log(path.basename('/foo/bar/baz/asdf/index.html', '.html')); // index
 console.log(path.basename('/foo/bar/baz/asdf/index.html', '.html123')); // index.html
 console.log(path.basename('/foo/bar/baz/asdf/index.html', '.htm')); // index.html
 console.log(path.basename('/foo/bar/baz/asdf/index.html', 'x.html')); // inde
-
+console.log(path.basename('/foo/bar/baz/asdf/index.html', 'tml')); // index.h
 
 
 // 如果 path 不是字符串或者给定了 ext 且不是字符串，则抛出 TypeError。
@@ -238,8 +238,8 @@ console.log(path.basename('/foo/bar/baz/asdf/index.html', 'x.html')); // inde
 
 ---
 **path.extname(path)**
-- path <string>
-- 返回: <string>
+- path ```<string>```
+- 返回: ```<string>```
 
 path.extname() 方法返回 path 的扩展名，从最后一次出现 .（句点）字符到 path 最后一部分的字符串结束。 如果在 path 的最后一部分中没有 . ，或者如果 path 的基本名称（参阅 path.basename()）除了第一个字符以外没有 .，则返回空字符串。
 
@@ -258,13 +258,13 @@ console.log(path.extname('.index.md')); // .md
 ---
 **path.format(pathObject)**
 - pathObject <Object>
-    - dir <string>
-    - root <string>
-    - base <string>
-    - name <string>
-    - ext <string>
-    - 返回: <string>
-- 返回: <string>
+    - dir ```<string>```
+    - root ```<string>```
+    - base ```<string>```
+    - name ```<string>```
+    - ext ```<string>```
+    - 返回: ```<string>```
+- 返回: ```<string>```
 
 path.format() 方法从对象返回路径字符串。 与 path.parse() 相反。
 
@@ -283,17 +283,17 @@ console.log(path.format({
 
 ---
 **path.parse(path)**
-- path <string>
-- 返回: <Object>
+- path `````<string>`````
+- 返回:```<Object>```
 
 path.parse() 方法返回一个对象，其属性表示 path 的重要元素。 尾部的目录分隔符将被忽略，参阅 path.sep。
 
 返回的对象将具有以下属性：
-- dir <string>
-- root <string>
-- base <string>
-- name <string>
-- ext <string>
+- dir ```<string>```
+- root ```<string>```
+- base ```<string>```
+- name ```<string>```
+- ext ```<string>```
 ```
 console.log(path.parse('C:\\path\\dir\\file.txt'));
 
@@ -322,7 +322,7 @@ console.log(path.parse('C:\\path\\dir\\file.txt'));
 
 ---
 **path.sep**
-- <string>
+- ```<string>```
 
 提供平台特定的路径片段分隔符：
 - Windows 上是 \。
@@ -338,7 +338,7 @@ console.log('foo\\bar\\baz'.split(path.sep)); // [ 'foo', 'bar', 'baz' ]
 
 ---
 **path.delimiter**
-- <string>
+- ```<string>```
 
 提供平台特定的路径定界符：
 - ; 用于 Windows
@@ -361,7 +361,7 @@ console.log(path.delimiter); // ;
 
 ---
 **path.win32**
-- <Object>
+- ```<Object>```
 
 path.win32 属性提供对特定于 Windows 的 path 方法的实现的访问。
 ```
