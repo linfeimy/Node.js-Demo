@@ -122,6 +122,24 @@
 
 
 ```
+const http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(200, {
+        "Content-Type": "text/plain"
+    });
+    res.write('Hello World!');
+    res.end();
+}).listen(3000);
+```
+
+Node.js 的 HTTP API 都非常底层。 它仅进行流处理和消息解析。 它将消息解析为消息头和消息主体，但不会解析具体的消息头或消息主体。
+
+有关如何处理重复消息头的详细信息，参阅 message.headers。
+
+
+
+
+```
 
 ```
 
@@ -133,9 +151,62 @@
 
 
 
+```
+
+```
 
 
 
 
 
 
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
+
+
+
+
+
+
+
+
+```
+
+```
