@@ -2,6 +2,7 @@ var util = require('util');
 var chalk = require('chalk');
 var superagent = require('superagent');
 var cheerio = require('cheerio');
+var async = require('async');
 
 var baseUrl = 'https://movie.douban.com/top250';
 
@@ -13,11 +14,11 @@ var headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'
 };
 
-superagent.get(baseUrl)
-    .set(headers)
-    .then(res => {
-        // console.info(util.inspect(res.text, true));
-    })
+// superagent.get(baseUrl)
+//     .set(headers)
+//     .then(res => {
+//         // console.info(util.inspect(res.text, true));
+//     })
 
 
 
@@ -38,4 +39,31 @@ var urlList = (function() {
 // console.log(urlList);
 
 
+function dataCatcher(url, headers, index, callback) {
+    superagent.get(url)
+        .set(headers)
+        .then(res => {
+            dataWatcher(res.text, index, callback)
+        })
+}
+
+function dataWatcher(data, index, callback) {
+    var $ = cheerio.load(data);
+    console.info(`now washing page： ${index + 1}`);
+    callback(null, index);
+}
+
+
+async.mapLimit(urlList, 3, (url, callback) => {
+    dataCatcher(url.url, headers, url.index, callback)
+}, (err, results) => {
+    console.info(util.inspect(results, true));
+});
+
+
+
+
+
+
 // https://www.9xkd.com/course/1007651700.html
+// https://my.oschina.net/u/2252639/blog/3052496
