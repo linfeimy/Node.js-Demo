@@ -1,8 +1,12 @@
+var fs = require('fs');
 var util = require('util');
 var chalk = require('chalk');
 var superagent = require('superagent');
 var cheerio = require('cheerio');
 var async = require('async');
+
+// 输出中间文件名
+var outputFile = 'data.json';
 
 var baseUrl = 'https://movie.douban.com/top250';
 
@@ -48,16 +52,53 @@ function dataCatcher(url, headers, index, callback) {
 }
 
 function dataWatcher(data, index, callback) {
+    // var $ = cheerio.load(data);
+    // console.info(`now washing page： ${index + 1}`);
+    // callback(null, index);
+
+    var result = [];
     var $ = cheerio.load(data);
-    console.info(`now washing page： ${index + 1}`);
-    callback(null, index);
+    var liList = $('.grid_view li');
+    for(var i = 0; i < liList.length; i++) {
+        var item = $(liList[i]).find('.item');
+        var head = $(item).find('.info .hd');
+        var body = $(item).find('.info .bd');
+
+        var data = {
+            order: $(item).find('.pic em').text(),
+            src: $(item).find('.pic a img').attr('src'),
+            title: $(head).find('.title').text(),
+            link: $(head).find('.a').attr('href'),
+            content: $(body).find('p').text(),
+            quote: $(body).find('.quote span').text()
+        }
+
+        console.info(data);
+        result.push(data);
+    }
+
+    console.info(`now washing page：${chalk.yellow(index + 1)}`);
+    callback(null, {
+        index: index,
+        data: result
+    })
 }
 
 
 async.mapLimit(urlList, 3, (url, callback) => {
     dataCatcher(url.url, headers, url.index, callback)
 }, (err, results) => {
-    console.info(util.inspect(results, true));
+    // console.info(util.inspect(results, true));
+    if(err) {
+        throw new Error(err);
+    }
+
+    fs.writeFile(outputFile, JSON.stringify(results, null, 2), function(err) {
+        if(err) {
+            throw new Error(err);
+        }
+        console.info(chalk.yellow(`文件抓取已经完成，内容在${outputFile} 中`));
+    })
 });
 
 
